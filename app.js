@@ -86,6 +86,27 @@ app.get('/astronauts/:id', async (req, res) => {
 /* Write the request handler to perform the action and return the data from the function replaceAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.put('/astronauts/:id', async (req, res) => {
+  try {
+    const astronaut = await replaceAstronautById(req.params.id, req.body);
+    if (astronaut) {
+      res.json({
+        success: true,
+        payload: astronaut,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        payload: 'Astronaut not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: error.message,
+    });
+  }
+});
 
 
 
