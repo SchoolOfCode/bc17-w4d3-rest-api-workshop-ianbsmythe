@@ -108,23 +108,45 @@ app.put('/astronauts/:id', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
 // Task 5
 
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.delete('/astronauts/:id', async (req, res) => {
+  try {
+    const astronaut = await deleteAstronautById(req.params.id);
+    if (astronaut) {
+      res.json({
+        success: true,
+        payload: astronaut,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        payload: 'Astronaut not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: error.message,
+    });
+  }
+});
+
 // Task 6
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+
+
+
+
+
+
+
+
+
 
 export default app;
