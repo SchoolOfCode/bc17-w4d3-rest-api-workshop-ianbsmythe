@@ -14,7 +14,33 @@ const app = express();
 
 app.use(express.json());
 
-/* 
+// Task 1
+
+/* Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
+function from the imported functions at the top of the `app.js` to get your data. */
+
+app.get('/astronauts', async (req, res) => {
+  try {
+    const astronauts = await getAstronauts();
+    res.json({
+      success: true,
+      payload: astronauts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: error.message,
+    });
+  }
+});
+
+
+
+
+
+/*
+
+
 
 All json responses for this tasks should follow the pattern:
 
@@ -25,10 +51,7 @@ res.json({
 
 */
 
-// Task 1
 
-/* Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
-function from the imported functions at the top of the `app.js` to get your data. */
 
 // Task 2
 
