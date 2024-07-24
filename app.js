@@ -140,13 +140,31 @@ app.delete('/astronauts/:id', async (req, res) => {
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.patch('/astronauts/:id', async (req, res) => {
+  try {
+    const { id } = req.params;  // Get the astronaut ID from the URL parameter
+    const updates = req.body;  // Get the partial data to update from the request body
 
+    // Call the function to update the astronaut by ID with partial data
+    const result = await updateAstronautById(id, updates);
 
-
-
-
-
-
-
+    if (result) {
+      res.json({
+        success: true,
+        payload: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        payload: `Astronaut with ID ${id} not found`,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: `Error updating astronaut: ${error.message}`,
+    });
+  }
+});
 
 export default app;
