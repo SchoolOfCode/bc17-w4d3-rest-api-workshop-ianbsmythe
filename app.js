@@ -34,6 +34,20 @@ app.get('/astronauts', async (req, res) => {
   }
 });
 
+app.post('/astronauts', async (req, res) => {
+  try {
+    const astronaut = await createAstronaut(req.body);
+    res.json({
+      success: true,
+      payload: astronaut,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: error.message,
+    });
+  }
+});
 
 
 
