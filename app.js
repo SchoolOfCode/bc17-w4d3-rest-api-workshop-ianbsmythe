@@ -34,6 +34,11 @@ app.get('/astronauts', async (req, res) => {
   }
 });
 
+// Task 2
+
+/* Write a request handler to return the correct response and perform the correct action when a `POST` request is received to 
+`/astronauts`. Choose the appropriate function from the imported functions at the top of the `app.js` to perform the action. */
+
 app.post('/astronauts', async (req, res) => {
   try {
     const astronaut = await createAstronaut(req.body);
@@ -49,38 +54,47 @@ app.post('/astronauts', async (req, res) => {
   }
 });
 
-
-
-
-/*
-
-
-
-All json responses for this tasks should follow the pattern:
-
-res.json({
-  "success": boolean,
-  "payload": returnedData
-})
-
-*/
-
-
-
-// Task 2
-
-/* Write a request handler to return the correct response and perform the correct action when a `POST` request is received to 
-`/astronauts`. Choose the appropriate function from the imported functions at the top of the `app.js` to perform the action. */
-
 // Task 3
 
 /* Write the request handler to return the data from the function getAstronautById. Have this handler listen to requests at the 
 appropriate path. */
 
+app.get('/astronauts/:id', async (req, res) => {
+  try {
+    const astronaut = await getAstronautById(req.params.id);
+    if (astronaut) {
+      res.json({
+        success: true,
+        payload: astronaut,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        payload: 'Astronaut not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      payload: error.message,
+    });
+  }
+});
+
 // Task 4
 
 /* Write the request handler to perform the action and return the data from the function replaceAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+
+
+
+
+
+
+
+
+
+
 
 // Task 5
 
